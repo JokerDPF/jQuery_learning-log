@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>demo - 微博登录</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+  <div class="login">
+    <div class="wrap-box">
+      <!-- 切换登录场景 -->
+      <div class="multi-type">
+        <a href="javascript:;" data-label="#account" class="label active">
+          账号登录
+        </a>
+        <a href="javascript:;" data-label="#secure" class="label">安全登录</a>
+        <a href="javascript:;" data-label="#phone" class="icon"></a>
+      </div>
+      <div class="login-type">
+        <!-- 账号登录 -->
+        <div class="account" id="account">
+          <div class="input-box username">
+            <input type="text" />
+          </div>
+          <div class="input-box password">
+            <input type="text" />
+          </div>
+          <div class="extra-box">
+            <label for="login_status">
+              <input id="login_status" type="checkbox" />
+              <span>记住我</span>
+            </label>
+            <a href="javascript:;">忘记密码</a>
+          </div>
+          <div class="button-box">
+            <button>登录</button>
+          </div>
+          <p class="text-box">
+            还没有微博? <a href="javascript:;">立即注册!</a>
+          </p>
+          <p class="social-box">
+            <span>基它登录：</span>
+            <a href="javascript:;" class="taobao"></a>
+            <a href="javascript:;" class="qq"></a>
+            <a href="javascript:;" class="yidong"></a>
+            <a href="javascript:;" class="tianyi"></a>
+            <a href="javascript:;" class="qihu"></a>
+          </p>
+        </div>
+        <!-- 手机号登录 -->
+        <div class="phone" id="phone">
+          <div class="input-box phone-number">
+            <input type="text" />
+          </div>
+          <div class="verify-box">
+            <button>获取短信验证码</button>
+            <input class="code" type="text" />
+          </div>
+          <div class="extra-box">
+            <label for="login_status">
+              <input id="login_status" type="checkbox" />
+              <span>记住我</span>
+            </label>
+            <a href="javascript:;">忘记密码</a>
+          </div>
+          <div class="button-box">
+            <button>登录</button>
+          </div>
+          <p class="text-box">
+            还没有微博? <a href="javascript:;">立即注册!</a>
+          </p>
+          <p class="social-box">
+            <span>基它登录：</span>
+            <a href="javascript:;" class="taobao"></a>
+            <a href="javascript:;" class="qq"></a>
+            <a href="javascript:;" class="yidong"></a>
+            <a href="javascript:;" class="tianyi"></a>
+            <a href="javascript:;" class="qihu"></a>
+          </p>
+        </div>
+        <!-- 二维码登录 -->
+        <div class="secure" id="secure">
+          <div class="qrcode">
+            <img src="./images/weibo.png" alt="" />
+            <span>请用最新版微博客户端扫码</span>
+          </div>
+          <p>还没有微博？<a href="javascript:;">立即注册!</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 引入 jQuery -->
+  <script src="./assets/jquery/jquery-3.5.1.min.js"></script>
+  <script>
+    // 账号&安全登录切换
+    // 账号&安全登录按钮绑定点击事件
+    $('.label').click(function () {
+      // 点击谁谁高亮
+      $(this).addClass('active')
+      // 其他的兄弟按钮不高亮
+      $(this).siblings().removeClass('active')
+      // 通过.attr()方法获取点击按钮的自定义属性，即对应内容的id
+      let id = $(this).attr('data-label')
+      // 使其内容一一对应
+      $(id).css('display', 'block')
+      // 并且其他兄弟内容隐藏
+      $(id).siblings().css('display', 'none')
+    })
+
+    // 安全&短信登录切换
+    // 首先判断短信登录是否添加了active类
+    // 给短信按钮绑定点击事件
+    $('.icon').click(function () {
+      let isActive = $('.icon').hasClass('active')
+      // 如果没有active类 就给其添加上这个类 并让兄弟移除这个类
+      if (isActive === false) {
+        // 点击谁谁高亮
+        $(this).addClass('active')
+        // 其他兄弟节点不高亮
+        $(this).siblings().removeClass('active')
+        // 通过.attr()方法获取点击按钮的自定义属性，即对应内容的id
+        let id = $(this).attr('data-label')
+        $(id).css('display', 'block')
+        // 其余兄弟不显示
+        $(id).siblings().css('display', 'none')
+      } 
+      // 如果存在active类 那么就靠代码trigger让安全登录按钮自动执行click事件 进行自动切换
+      else {
+        $('.label')
+          .last()
+          .trigger('click')
+      }
+    })
+
+  </script>
+</body>
+
+</html>
